@@ -1,13 +1,13 @@
-from PIL import Image
-from pytesseract import pytesseract
+import cv2
+import numpy as np
+import easyocr
+import matplotlib.pyplot as plot
 
-image = Image.open("test.png")
-image = image.resize((400,200))
-image.save("sample.png")
+image_1_path = "C:\Users\tsain\OneDrive\Pictures\images_for_text\test.png"
 
-path_to_tesseract = r"C:\Users\tsain\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.11_qbz5n2kfra8p0\LocalCache\local-packages\Python311\site-packages\pytesseract"
-pytesseract.tesseract_cmd = path_to_tesseract
+def recognize_text(img_path):
 
-text = pytesseract.image_to_string(image)
-#print the text line by line
-print(text[:-1])
+	reader = easyocry.Reader(["en"])
+	return reder.redtext(img_path)
+
+result = recognize_text(image_1_path)
