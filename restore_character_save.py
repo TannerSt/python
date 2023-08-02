@@ -7,7 +7,7 @@ import os
 #using for/if statement to grab any file that starts with Amazon so I can reduce number of lines
 
 char = input("Which Character?: ")
-print("Copying", char)
+print("restored save for", char)
 
 source = r"C:\Users\tsain\Diablo2Saves"
 destination = r"C:\Users\tsain\Saved Games\Diablo II Resurrected"
