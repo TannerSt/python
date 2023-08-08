@@ -3,12 +3,26 @@ import numpy as np
 import easyocr
 import matplotlib.pyplot as plot
 
-image_1_path = r"C:\Users\tsain\OneDrive\Pictures\images_for_text\test.png"
+from time import sleep
+from PIL import ImageGrab
+
+
+def screenshot():
+	ss_region = (1000, 375, 1600, 650)
+	ss_img = ImageGrab.grab(ss_region)
+	ss_img.save(r"C:\Users\tsain\OneDrive\Pictures\Screenshots\tmp.png")
+
+
+sleep(10)	#pause to get app open manually for now
+screenshot()
+sleep(4)
+
+image_1_path = r"C:\Users\tsain\OneDrive\Pictures\Screenshots\tmp.png"
 
 def recognize_text(img_path):
 
 	reader = easyocr.Reader(["en"])
-	return reader.readtext(img_path)
+	return reader.readtext((img_path), detail=0) #specifies only text output without coordinates or confidence
 
 result = recognize_text(image_1_path)
 
