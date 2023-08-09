@@ -55,10 +55,10 @@ for x in crafting_run_range(1, 11, 1):
 		def open_share_stash():
 			press_any_Key()
 			sleep(0.2)
-			mouse.move(790, 410, absolute=True, duration=0.2)
+			mouse.move(790, 410, absolute=True, duration=0.2)	#opens stash
 			sleep(0.2)
 			mouse.click("left")
-			mouse.move(576, 264, absolute=True, duration=0.2)
+			mouse.move(576, 264, absolute=True, duration=0.2)	#opens 2nd stash tab
 			sleep(0.2)
 			mouse.click("left")
 
