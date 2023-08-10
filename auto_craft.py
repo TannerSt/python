@@ -3,12 +3,16 @@ import mouse
 import time
 from time import sleep
 import os
-#importing subprocess to run an .exe
-import subprocess
-#importing Popen to send keyboard commands within subprocess via a PIPE
-from subprocess import Popen, PIPE
-#importing shutil to copy files
-import shutil
+import cv2
+import numpy as np
+import easyocr
+import matplotlib.pyplot as plot
+import subprocess					#importing subprocess to run an .exe
+import shutil						#importing shutil to copy files
+
+from time import sleep
+from PIL import ImageGrab
+from subprocess import Popen, PIPE	#importing Popen to send keyboard commands within subprocess via a PIPE
 
 
 ###specify the character name, make sure they are in the first slot on char select###
@@ -96,7 +100,10 @@ for x in crafting_run_range(1, 11, 1):
 
 		def items_to_stash():
 
-			
+			def screenshot():
+				ss_region = (1000, 375, 1600, 650)
+				ss_img = ImageGrab.grab(ss_region)
+				ss_img.save(r"C:\Users\tsain\OneDrive\Pictures\Screenshots\tmp.png")
 
 			def my_crafted_item_range(start, end, step):
 				while start <= end:
@@ -105,7 +112,27 @@ for x in crafting_run_range(1, 11, 1):
 
 			for x in my_crafted_item_range(1200, 1466, 38):
 				mouse.move(x, 644, absolute=True, duration=0.2)
-				mouse_snap_move()
+				screenshot()
+
+				image_1_path = r"C:\Users\tsain\OneDrive\Pictures\Screenshots\tmp.png"
+
+				def recognize_text(img_path):
+
+					reader = easyocr.Reader(["en"])					#creates a list
+					return reader.readtext((img_path), detail=0)	#specifies only text output without coordinates or confidence
+
+				sleep(5)
+
+				result = recognize_text(image_1_path)
+				search_item = "SKLL LEVELS"							#this is exact matching which wont work well
+				found = False
+
+				for index, item in enumerate(result):				#searches result list for search item
+					if item == search_item:
+						found = True
+						mouse_snap_move()							#need to count how many times this happens, and be done when n= number of free slots rather than some number of full character restores
+						break
+				print(result)
 				sleep(0.2)
 
 		def exit_game():
